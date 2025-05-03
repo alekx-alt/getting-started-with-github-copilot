@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Геолокация</title>
+</head>
+<body>
+  <h1>Получение геолокации</h1>
+  <button onclick="getLocation()">Показать моё местоположение</button>
+  <p id="output"></p>
+
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else {
+        document.getElementById("output").innerText = "Геолокация не поддерживается.";
+      }
+    }
+
+    function showPosition(position) {
+      document.getElementById("output").innerText =
+        "Широта: " + position.coords.latitude + 
+        "\nДолгота: " + position.coords.longitude;
+    }
+
+    function showError(error) {
+      switch(error.code) {
+        case error.PERMISSION_DENIED:
+          alert("Доступ к геолокации отклонён.");
+          break;
+        case error.POSITION_UNAVAILABLE:
+          alert("Информация о местоположении недоступна.");
+          break;
+        case error.TIMEOUT:
+          alert("Время ожидания запроса истекло.");
+          break;
+        case error.UNKNOWN_ERROR:
+          alert("Произошла неизвестная ошибка.");
+          break;
+      }
+    }
+  </script>
+</body>
+</html>
